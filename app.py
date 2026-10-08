@@ -93,8 +93,7 @@ def register():
         conn.close()
         
         send_verification_email(email, token)
-        flash('Registro exitoso. Por favor revisa tu correo para verificar tu cuenta.')
-        return redirect(url_for('login'))
+        return redirect(url_for('pending_verification', email=email))
         
     return render_template('register.html')
 
@@ -115,6 +114,11 @@ def verify(token):
     cur.close()
     conn.close()
     return redirect(url_for('login'))
+
+@app.route('/pending_verification')
+def pending_verification():
+    email = request.args.get('email', 'tu correo')
+    return render_template('pending.html', email=email)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

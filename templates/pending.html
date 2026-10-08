@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPuebla - Verificación en curso</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .pending-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .icon-mail {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .pending-text {
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body class="login-body">
+    <div class="login-container pending-container">
+        <div class="icon-mail">✉️</div>
+        <h2>Verificación en curso</h2>
+        
+        <div class="pending-text">
+            <p>Hemos creado tu cuenta exitosamente.</p>
+            <p>Enviamos un enlace de confirmación a:<br><strong>{{ email }}</strong></p>
+            <p style="font-size: 0.9em; margin-top: 15px; color: #777;">
+                <i>Por favor revisa tu bandeja de entrada (y tu carpeta de Spam) para activar tu cuenta.</i>
+            </p>
+        </div>
+        
+        <a href="/login" class="btn" style="text-decoration: none; display: inline-block;">Ya me verifiqué, Iniciar sesión</a>
+    </div>
+</body>
+</html>
