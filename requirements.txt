@@ -1,7 +1,7 @@
 Flask
 psycopg2-binary
 Pillow
-opencv-python
+opencv-python-headless
 Werkzeug
 python-dotenv
 
