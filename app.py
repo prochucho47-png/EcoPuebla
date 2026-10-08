@@ -64,6 +64,36 @@ def send_verification_email(user_email, token):
     except Exception as e:
         print(f"Error enviando correo: {e}")
 
+def send_reset_email(user_email, token):
+    import os
+    from flask import request
+    mail_user = os.getenv('MAIL_USERNAME')
+    mail_pass = os.getenv('MAIL_PASSWORD')
+    
+    if not mail_user or not mail_pass:
+        print("=============================================")
+        print(f"[SIMULACION RECUPERAR CLAVE] Enviado a {user_email}")
+        print(f"Enlace: {request.host_url}reset-password/{token}")
+        print("=============================================")
+        return
+        
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = mail_user
+        msg['To'] = user_email
+        msg['Subject'] = "Recuperar Contraseña - EcoPuebla"
+        
+        body = f"Hola, recibimos una solicitud para restablecer tu contraseña.\n\nHaz clic en el siguiente enlace:\n\n{request.host_url}reset-password/{token}\n\nSi no fuiste tú, ignora este correo."
+        msg.attach(MIMEText(body, 'plain'))
+        
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(mail_user, mail_pass)
+        server.send_message(msg)
+        server.quit()
+    except Exception as e:
+        print(f"Error enviando correo: {e}")
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -120,6 +150,58 @@ def pending_verification():
     email = request.args.get('email', 'tu correo')
     return render_template('pending.html', email=email)
 
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT id FROM usuarios WHERE email = %s", (email,))
+        user = cur.fetchone()
+        
+        if user:
+            token = str(uuid.uuid4())
+            cur.execute("UPDATE usuarios SET reset_token = %s WHERE id = %s", (token, user['id']))
+            conn.commit()
+            send_reset_email(email, token)
+            
+        cur.close()
+        conn.close()
+        # Siempre mostramos éxito por seguridad (para no revelar qué correos existen)
+        flash('Si el correo está registrado, te enviamos un enlace para restablecer tu contraseña.')
+        return redirect(url_for('login'))
+        
+    return render_template('forgot_password.html')
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT id FROM usuarios WHERE reset_token = %s", (token,))
+    user = cur.fetchone()
+    
+    if not user:
+        cur.close()
+        conn.close()
+        flash('El enlace para restablecer contraseña es inválido o expiró.')
+        return redirect(url_for('login'))
+        
+    if request.method == 'POST':
+        password = request.form['password']
+        hashed_pw = generate_password_hash(password)
+        
+        cur.execute("UPDATE usuarios SET password_hash = %s, reset_token = NULL WHERE id = %s", (hashed_pw, user['id']))
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        flash('Contraseña restablecida exitosamente. Ya puedes iniciar sesión.')
+        return redirect(url_for('login'))
+        
+    cur.close()
+    conn.close()
+    return render_template('reset_password.html', token=token)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -161,6 +243,24 @@ def index():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     return render_template('index.html', username=session['username'], rol=session['rol'])
+
+@app.route('/mis_descubrimientos')
+def user_gallery():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute('''
+        SELECT * FROM detecciones 
+        WHERE usuario_id = %s 
+        ORDER BY fecha_captura DESC
+    ''', (session['user_id'],))
+    capturas = cur.fetchall()
+    cur.close()
+    conn.close()
+    
+    return render_template('gallery.html', capturas=capturas, username=session['username'])
 
 @app.route('/admin')
 def admin_dashboard():
