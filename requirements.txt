@@ -6,3 +6,5 @@ Werkzeug
 python-dotenv
 
 gunicorn
+
+google-generativeai
