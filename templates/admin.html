@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - EcoPuebla</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🌿 EcoPuebla - PANEL ADMIN</div>
+        <div class="nav-user">
+            Hola, {{ username }} | 
+            <a href="/" class="nav-link">Ir a Cámara</a> | 
+            <a href="/logout" class="nav-link">Cerrar Sesión</a>
+        </div>
+    </nav>
+    
+    <div class="container admin-container">
+        <h2>Historial General de Capturas</h2>
+        <p>Aquí puedes ver todas las pruebas y hallazgos realizados por todos los usuarios del sistema.</p>
+        
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Imagen</th>
+                    <th>Tipo</th>
+                    <th>Nombre Común</th>
+                    <th>Nombre Científico</th>
+                    <th>Fiabilidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cap in capturas %}
+                <tr>
+                    <td>{{ cap.fecha_captura.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td><span style="color: #2E7D32; font-weight: bold;">@{{ cap.username }}</span></td>
+                    <td><img src="/{{ cap.imagen_path }}" alt="Captura" class="thumb"></td>
+                    <td>{{ cap.tipo }}</td>
+                    <td>{{ cap.nombre_comun }}</td>
+                    <td><em>{{ cap.nombre_cientifico }}</em></td>
+                    <td>{{ (cap.nivel_confianza * 100) | round(1) }}%</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No hay capturas registradas aún en el sistema.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

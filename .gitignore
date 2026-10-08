@@ -1,0 +1,10 @@
+# Ignorar archivos ocultos y de configuración local
+.env
+__pycache__/
+*.pyc
+
+# Ignorar las imágenes subidas por usuarios temporalmente (se manejan diferente en producción)
+static/uploads/
+
+# Ignorar configuraciones del editor
+.vscode/

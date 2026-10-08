@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPuebla - Reconocimiento de Flora y Fauna</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- BARRA DE NAVEGACIÓN AÑADIDA -->
+    <nav class="navbar">
+        <div class="nav-brand">🌿 EcoPuebla</div>
+        <div class="nav-user">
+            Hola, <strong>{{ username }}</strong> 
+            {% if rol == 'administrador' %}
+            | <a href="/admin" class="nav-link">⚙️ Panel Admin</a>
+            {% endif %}
+            | <a href="/logout" class="nav-link">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <main>
+            <div class="upload-section">
+                <p>Toma una foto o sube una imagen para identificar la especie.</p>
+                <!-- El atributo capture="environment" abre directamente la cámara trasera en el celular -->
+                <input type="file" id="imageInput" accept="image/*" capture="environment">
+                <button id="analyzeBtn" class="btn">Analizar Imagen</button>
+            </div>
+
+            <div class="preview-section">
+                <img id="imagePreview" src="" alt="Vista previa de la captura" style="display:none;">
+            </div>
+
+            <div id="result-section" class="result-section" style="display:none;">
+                <h2>Resultado del Análisis</h2>
+                <div id="resultContent"></div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
