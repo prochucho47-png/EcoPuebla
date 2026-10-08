@@ -41,12 +41,10 @@ def send_verification_email(user_email, token):
     mail_pass = os.getenv('MAIL_PASSWORD')
     
     if not mail_user or not mail_pass:
-        print(f"
-=============================================")
-        print(f"[SIMULACIÓN DE CORREO] Enviado a {user_email}")
-        print(f"Enlace de verificación: {request.host_url}verify/{token}")
-        print(f"=============================================
-")
+        print("=============================================")
+        print(f"[SIMULACION DE CORREO] Enviado a {user_email}")
+        print(f"Enlace de verificacion: {request.host_url}verify/{token}")
+        print("=============================================")
         return
         
     try:
@@ -55,11 +53,7 @@ def send_verification_email(user_email, token):
         msg['To'] = user_email
         msg['Subject'] = "Verifica tu cuenta en EcoPuebla"
         
-        body = f"Hola, haz clic en el siguiente enlace para verificar tu cuenta:
-
-{request.host_url}verify/{token}
-
-Gracias por unirte."
+        body = f"Hola, haz clic en el siguiente enlace para verificar tu cuenta:\n\n{request.host_url}verify/{token}\n\nGracias por unirte."
         msg.attach(MIMEText(body, 'plain'))
         
         server = smtplib.SMTP('smtp.gmail.com', 587)
