@@ -3,7 +3,11 @@ import psycopg2
 import psycopg2.extras
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for, flash
 from werkzeug.utils import secure_filename
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
+import uuid
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 from model import predict_image
 
@@ -30,21 +34,112 @@ def get_db_connection():
         )
     return conn
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+def send_verification_email(user_email, token):
+    import os
+    from flask import request
+    mail_user = os.getenv('MAIL_USERNAME')
+    mail_pass = os.getenv('MAIL_PASSWORD')
+    
+    if not mail_user or not mail_pass:
+        print(f"
+=============================================")
+        print(f"[SIMULACIÓN DE CORREO] Enviado a {user_email}")
+        print(f"Enlace de verificación: {request.host_url}verify/{token}")
+        print(f"=============================================
+")
+        return
+        
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = mail_user
+        msg['To'] = user_email
+        msg['Subject'] = "Verifica tu cuenta en EcoPuebla"
+        
+        body = f"Hola, haz clic en el siguiente enlace para verificar tu cuenta:
+
+{request.host_url}verify/{token}
+
+Gracias por unirte."
+        msg.attach(MIMEText(body, 'plain'))
+        
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(mail_user, mail_pass)
+        server.send_message(msg)
+        server.quit()
+    except Exception as e:
+        print(f"Error enviando correo: {e}")
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     if request.method == 'POST':
         username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         
         conn = get_db_connection()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute('SELECT * FROM usuarios WHERE username = %s', (username,))
+        
+        cur.execute("SELECT id FROM usuarios WHERE username = %s OR email = %s", (username, email))
+        if cur.fetchone():
+            flash('El nombre de usuario o correo ya está en uso.')
+            cur.close()
+            conn.close()
+            return redirect(url_for('register'))
+            
+        token = str(uuid.uuid4())
+        hashed_pw = generate_password_hash(password)
+        
+        cur.execute("""
+            INSERT INTO usuarios (username, email, password_hash, rol, is_verified, verification_token) 
+            VALUES (%s, %s, %s, 'usuario', FALSE, %s)
+        """, (username, email, hashed_pw, token))
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        send_verification_email(email, token)
+        flash('Registro exitoso. Por favor revisa tu correo para verificar tu cuenta.')
+        return redirect(url_for('login'))
+        
+    return render_template('register.html')
+
+@app.route('/verify/<token>')
+def verify(token):
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute("SELECT id FROM usuarios WHERE verification_token = %s", (token,))
+    user = cur.fetchone()
+    
+    if user:
+        cur.execute("UPDATE usuarios SET is_verified = TRUE, verification_token = NULL WHERE id = %s", (user['id'],))
+        conn.commit()
+        flash('Cuenta verificada correctamente. Ya puedes iniciar sesión.')
+    else:
+        flash('Enlace de verificación inválido o ya utilizado.')
+        
+    cur.close()
+    conn.close()
+    return redirect(url_for('login'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        login_id = request.form['username']
+        password = request.form['password']
+        
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute('SELECT * FROM usuarios WHERE username = %s OR email = %s', (login_id, login_id))
         user = cur.fetchone()
         cur.close()
         conn.close()
         
-        # Verificar contraseña encriptada
         if user and check_password_hash(user['password_hash'], password):
+            if not user.get('is_verified', True):
+                flash('Por favor verifica tu correo electrónico antes de iniciar sesión.')
+                return redirect(url_for('login'))
+                
             session['user_id'] = user['id']
             session['username'] = user['username']
             session['rol'] = user['rol']
@@ -53,7 +148,7 @@ def login():
                 return redirect(url_for('admin_dashboard'))
             return redirect(url_for('index'))
         else:
-            flash('Usuario o contraseña incorrectos. Intenta de nuevo.')
+            flash('Usuario/Correo o contraseña incorrectos. Intenta de nuevo.')
             
     return render_template('login.html')
 

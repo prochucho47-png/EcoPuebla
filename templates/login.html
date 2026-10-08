@@ -19,10 +19,14 @@
         {% endwith %}
         
         <form method="POST" action="/login">
-            <input type="text" name="username" placeholder="Nombre de usuario" required autocomplete="off">
+            <input type="text" name="username" placeholder="Usuario o Correo Electrónico" required autocomplete="off">
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit" class="btn">Entrar</button>
         </form>
+        
+        <div style="margin-top:15px; font-size: 0.9em;">
+            ¿No tienes cuenta? <a href="/register" style="color: #2E7D32; font-weight: bold;">Regístrate aquí</a>
+        </div>
         
         <div style="margin-top:20px; font-size: 0.85em; color:#666; text-align: left; background: #f9f9f9; padding: 10px; border-radius: 5px;">
             <strong>Cuentas de prueba:</strong><br>
