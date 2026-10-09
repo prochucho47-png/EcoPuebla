@@ -304,16 +304,19 @@ def recognize_image():
         resultado = predict_image(filepath)
         
         # 2. Guardar registro en Base de Datos
+        lat = request.form.get('lat')
+        lng = request.form.get('lng')
+        
         # Evitamos guardar registros de cuando el sistema da error o se llena la cuota
         if "Error" not in resultado.get("nombre_comun", "") and "Ocupado" not in resultado.get("nombre_comun", ""):
             try:
                 conn = get_db_connection()
                 cur = conn.cursor()
                 cur.execute('''
-                    INSERT INTO detecciones (usuario_id, tipo, nombre_comun, nombre_cientifico, imagen_path, nivel_confianza)
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    INSERT INTO detecciones (usuario_id, tipo, nombre_comun, nombre_cientifico, imagen_path, nivel_confianza, latitud, longitud)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 ''', (session['user_id'], resultado['tipo'], resultado['nombre_comun'], 
-                      resultado['nombre_cientifico'], filepath, resultado['confianza']))
+                      resultado['nombre_cientifico'], filepath, resultado['confianza'], lat, lng))
                 conn.commit()
                 cur.close()
                 conn.close()
@@ -326,5 +329,35 @@ def recognize_image():
             'data': resultado
         })
 
+
+@app.route('/ranking')
+def ranking():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    # Sistema de puntos: Fauna = 20 pts, Flora = 10 pts, Otros = 5 pts
+    cur.execute('''
+        SELECT u.username, 
+               COUNT(d.id) as total_descubrimientos,
+               SUM(CASE 
+                   WHEN d.tipo = 'Fauna' THEN 20 
+                   WHEN d.tipo = 'Flora' THEN 10 
+                   ELSE 5 
+               END) as puntos
+        FROM usuarios u
+        JOIN detecciones d ON u.id = d.usuario_id
+        GROUP BY u.id, u.username
+        ORDER BY puntos DESC
+    ''')
+    rankings = cur.fetchall()
+    cur.close()
+    conn.close()
+    
+    return render_template('ranking.html', rankings=rankings, username=session['username'], rol=session.get('rol'))
+
 if __name__ == '__main__':
+
     app.run(debug=True, host='0.0.0.0', port=5000)

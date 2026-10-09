@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking - EcoPuebla</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .ranking-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .ranking-header {
+            background-color: #2E7D32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .ranking-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        .ranking-item:hover {
+            background-color: #f1f8f1;
+        }
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+        .rank-pos {
+            font-size: 1.5em;
+            font-weight: bold;
+            width: 40px;
+            color: #888;
+        }
+        .rank-user {
+            flex-grow: 1;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+        .rank-stats {
+            text-align: right;
+        }
+        .rank-pts {
+            color: #2E7D32;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .rank-desc {
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">🌿 EcoPuebla</div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">☰</label>
+        <div class="nav-user">
+            <span>Hola, <strong>{{ username }}</strong></span>
+            <a href="/" class="nav-link">Cámara</a>
+            <a href="/mis_descubrimientos" class="nav-link">Mis Descubrimientos</a>
+            {% if rol == 'administrador' %}
+            <a href="/admin" class="nav-link">⚙️ Panel Admin</a>
+            {% endif %}
+            <a href="/logout" class="nav-link">Cerrar Sesión</a>
+        </div>
+    </nav>
+    
+    <div class="ranking-container">
+        <div class="ranking-header">
+            <h2>🏆 Ranking de Exploradores</h2>
+            <p style="margin:5px 0 0 0; opacity: 0.9;">¡Descubre flora y fauna para ganar puntos!</p>
+        </div>
+        
+        <ul class="ranking-list">
+            {% for rank in rankings %}
+            <li class="ranking-item">
+                <div class="rank-pos">
+                    {% if loop.index == 1 %}🥇
+                    {% elif loop.index == 2 %}🥈
+                    {% elif loop.index == 3 %}🥉
+                    {% else %}{{ loop.index }}{% endif %}
+                </div>
+                <div class="rank-user">
+                    @{{ rank.username }}
+                </div>
+                <div class="rank-stats">
+                    <div class="rank-pts">{{ rank.puntos }} pts</div>
+                    <div class="rank-desc">{{ rank.total_descubrimientos }} descubrimientos</div>
+                </div>
+            </li>
+            {% else %}
+            <li style="text-align:center; padding: 30px; color: #666;">
+                Aún no hay exploradores en el ranking. ¡Sé el primero!
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
