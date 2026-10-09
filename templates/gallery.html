@@ -65,9 +65,11 @@
 <body>
     <nav class="navbar">
         <div class="nav-brand">🌿 EcoPuebla</div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">☰</label>
         <div class="nav-user">
-            Hola, {{ username }} | 
-            <a href="/" class="nav-link">Nueva Captura</a> | 
+            <span>Hola, <strong>{{ username }}</strong></span>
+            <a href="/" class="nav-link">Nueva Captura</a>
             <a href="/logout" class="nav-link">Cerrar Sesión</a>
         </div>
     </nav>

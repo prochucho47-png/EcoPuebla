@@ -185,3 +185,52 @@ input[type="file"] {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* Menu Responsivo */
+.menu-toggle {
+    display: none;
+}
+.menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+}
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+    .navbar {
+        position: relative;
+        flex-wrap: wrap;
+    }
+    .nav-user {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #1b5e20;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        z-index: 1000;
+        text-align: center;
+        gap: 10px;
+    }
+    .nav-user .nav-link {
+        margin: 5px 0;
+        display: block;
+        width: 100%;
+    }
+    .menu-toggle:checked ~ .nav-user {
+        display: flex;
+    }
+}
