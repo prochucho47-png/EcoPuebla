@@ -26,6 +26,14 @@
     <div class="login-container pending-container">
         <div class="icon-mail">✉️</div>
         <h2>Verificación en curso</h2>
+        <!-- Mostrar mensajes de error / simulacion -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div style="margin-bottom: 20px;">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         
         <div class="pending-text">
             <p>Hemos creado tu cuenta exitosamente.</p>

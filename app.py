@@ -1,6 +1,7 @@
 import os
 import psycopg2
 import psycopg2.extras
+from markupsafe import Markup
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -41,10 +42,9 @@ def send_verification_email(user_email, token):
     mail_pass = os.getenv('MAIL_PASSWORD')
     
     if not mail_user or not mail_pass:
-        print("=============================================")
-        print(f"[SIMULACION DE CORREO] Enviado a {user_email}")
-        print(f"Enlace de verificacion: {request.host_url}verify/{token}")
-        print("=============================================")
+        from flask import flash
+        from markupsafe import Markup
+        flash(Markup(f"<div style='background:#E3F2FD; color:#1565C0; padding:15px; border-radius:8px; margin-top:10px; border:1px solid #90CAF9;'><strong>SIMULACIÓN DE CORREO:</strong><br>En la vida real te llegaría un correo. Para continuar la prueba, <a href='/verify/{token}' style='color:#0D47A1; font-weight:bold; text-decoration:underline;'>Haz clic aquí para verificar tu cuenta</a></div>"))
         return
         
     try:
@@ -71,10 +71,9 @@ def send_reset_email(user_email, token):
     mail_pass = os.getenv('MAIL_PASSWORD')
     
     if not mail_user or not mail_pass:
-        print("=============================================")
-        print(f"[SIMULACION RECUPERAR CLAVE] Enviado a {user_email}")
-        print(f"Enlace: {request.host_url}reset-password/{token}")
-        print("=============================================")
+        from flask import flash
+        from markupsafe import Markup
+        flash(Markup(f"<div style='background:#E3F2FD; color:#1565C0; padding:15px; border-radius:8px; margin-top:10px; border:1px solid #90CAF9;'><strong>SIMULACIÓN DE CORREO:</strong><br>En la vida real te llegaría un correo. Para continuar la prueba, <a href='/reset-password/{token}' style='color:#0D47A1; font-weight:bold; text-decoration:underline;'>Haz clic aquí para recuperar tu contraseña</a></div>"))
         return
         
     try:
