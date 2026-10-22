@@ -8,39 +8,103 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body class="login-body">
-    <div class="login-container">
-        <div class="login-brand">
-            <img src="/static/logo.svg" alt="Logo EcoPuebla">
-            <div class="login-brand-text"><span>Eco</span>Puebla</div>
+    <div class="auth-card">
+        <!-- Panel Izquierdo: Identidad y Características -->
+        <div class="auth-banner">
+            <div class="auth-banner-brand">
+                <img src="/static/logo.svg" alt="Logo EcoPuebla">
+                <span><em>Eco</em>Puebla</span>
+            </div>
+
+            <div class="auth-banner-content">
+                <h1>Descubre la biodiversidad de Puebla</h1>
+                <p>Identifica especies de flora y fauna mediante Inteligencia Artificial, registra tus hallazgos en el mapa interactivo y compite en el ranking de exploradores.</p>
+            </div>
+
+            <div class="auth-features">
+                <div class="auth-feature-item">
+                    <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <span>Reconocimiento visual con IA en segundos</span>
+                </div>
+                <div class="auth-feature-item">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>Geolocalización y mapa de avistamientos</span>
+                </div>
+                <div class="auth-feature-item">
+                    <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                    <span>Colección personal y sistema de ranking</span>
+                </div>
+            </div>
         </div>
-        <p style="margin-top: 6px; color: #555;">Inicia sesión para continuar</p>
-        
-        <!-- Mostrar mensajes de error -->
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert error" style="background-color: transparent; border: none; padding: 0;">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-        
-        <form method="POST" action="/login">
-            <input type="text" name="username" placeholder="Usuario o Correo Electrónico" required autocomplete="off">
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit" class="btn">Entrar</button>
-        </form>
-        
-        <div style="margin-top:15px; font-size: 0.9em;">
-            ¿No tienes cuenta? <a href="/register" style="color: #2E7D32; font-weight: bold;">Regístrate aquí</a>
-        </div>
-        
-        <div style="margin-top:10px; font-size: 0.9em;">
-            ¿Olvidaste tu contraseña? <a href="/forgot-password" style="color: #2E7D32; text-decoration: underline;">Recupérala aquí</a>
-        </div>
-        
-        <div style="margin-top:25px; font-size: 0.85em; color:#888; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
-            Soporte: <a href="mailto:ecopueblaverificacion@gmail.com" style="color: #2E7D32; text-decoration: none;">ecopueblaverificacion@gmail.com</a>
+
+        <!-- Panel Derecho: Formulario de Inicio de Sesión -->
+        <div class="auth-form-side">
+            <div class="auth-form-header">
+                <h2>Bienvenido de nuevo</h2>
+                <p>Ingresa tus credenciales para acceder a tu cuenta</p>
+            </div>
+
+            <!-- Mostrar mensajes de error o avisos -->
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert error">{{ message }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/login">
+                <div class="form-group">
+                    <label class="form-label" for="usernameInput">Usuario o Correo Electrónico</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-1a6 6 0 0 1 12 0v1"></path></svg>
+                        <input type="text" id="usernameInput" name="username" placeholder="Ej. juan o correo@ejemplo.com" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label class="form-label" for="passwordInput">Contraseña</label>
+                        <a href="/forgot-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <input type="password" id="passwordInput" name="password" placeholder="Ingresa tu contraseña" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('passwordInput', this)" title="Mostrar u ocultar contraseña">
+                            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth">
+                    <span>Iniciar Sesión</span>
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </form>
+
+            <div class="auth-switch">
+                ¿No tienes una cuenta todavía?
+                <a href="/register">Regístrate aquí</a>
+            </div>
+
+            <div class="auth-footer">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Soporte: <a href="mailto:ecopueblaverificacion@gmail.com">ecopueblaverificacion@gmail.com</a></span>
+            </div>
         </div>
     </div>
+
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+            } else {
+                input.type = 'password';
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            }
+        }
+    </script>
 </body>
 </html>
