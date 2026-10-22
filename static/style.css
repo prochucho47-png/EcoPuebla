@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
     color: #333;
     margin: 0;
     padding: 0;
+}
+
+h1, h2, h3, .brand-text {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
 }
 
 .container {
@@ -14,7 +21,7 @@ body {
 }
 
 header {
-    background-color: #2E7D32; /* Verde naturaleza */
+    background-color: #2E7D32;
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -23,9 +30,9 @@ header {
 
 .upload-section {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 input[type="file"] {
@@ -34,20 +41,21 @@ input[type="file"] {
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: #2E7D32;
     color: white;
     border: none;
     padding: 12px 24px;
     font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s;
+    transition: background-color 0.25s, transform 0.15s;
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #1b5e20;
 }
 
 .btn:disabled {
@@ -57,17 +65,17 @@ input[type="file"] {
 
 #imagePreview {
     max-width: 100%;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .result-section {
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     text-align: left;
     border-left: 5px solid #2E7D32;
 }
@@ -77,51 +85,276 @@ input[type="file"] {
     color: #2E7D32;
 }
 
-
-/* ESTILOS AÑADIDOS PARA EL LOGIN Y PANEL ADMIN */
+/* =========================================================
+   BARRA DE NAVEGACIÓN, LOGO PERSONALIZADO Y MENÚ DESPLEGABLE
+   ========================================================= */
 .navbar {
-    background-color: #1b5e20;
+    background: linear-gradient(90deg, #164e1b 0%, #1b5e20 100%);
     color: white;
-    padding: 15px 30px;
+    padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 1500;
 }
 
 .nav-brand {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-.nav-link {
-    color: #c8e6c9;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    margin-left: 10px;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
     color: white;
-    text-decoration: underline;
+    transition: opacity 0.2s, transform 0.2s;
 }
 
+.nav-brand:hover {
+    opacity: 0.92;
+}
+
+.brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.brand-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+}
+
+.brand-eco {
+    color: #81C784;
+    font-weight: 600;
+}
+
+.brand-admin-tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #C8E6C9;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 4px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* Botón destacado "Nueva Captura" de diferente color */
+.btn-capture {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background-color: #F59E0B;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+    transition: background-color 0.2s, transform 0.15s;
+    white-space: nowrap;
+}
+
+.btn-capture:hover {
+    background-color: #D97706;
+    transform: translateY(-1px);
+}
+
+.btn-capture svg {
+    width: 17px;
+    height: 17px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Iconos minimalistas de línea (estilo Imagen 2) */
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.icon-btn svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Menú desplegable unificado (Celular y Escritorio) */
+.menu-toggle {
+    display: none;
+}
+
+.nav-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 230px;
+    background-color: #ffffff;
+    color: #222;
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    padding: 8px 0;
+    z-index: 2000;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.menu-toggle:checked ~ .nav-dropdown {
+    display: flex;
+}
+
+.dropdown-user-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 4px;
+    color: #1b5e20;
+    font-size: 0.9rem;
+}
+
+.dropdown-user-header svg {
+    width: 22px;
+    height: 22px;
+    stroke: #1b5e20;
+    stroke-width: 1.8;
+    fill: none;
+    flex-shrink: 0;
+}
+
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.dropdown-link svg {
+    width: 18px;
+    height: 18px;
+    stroke: #2E7D32;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+.dropdown-link:hover {
+    background-color: #f0fdf4;
+    color: #1b5e20;
+}
+
+.dropdown-link.logout-link {
+    color: #c62828;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 4px;
+    padding-top: 12px;
+}
+
+.dropdown-link.logout-link svg {
+    stroke: #c62828;
+}
+
+.dropdown-link.logout-link:hover {
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Encabezado con Logo en Login / Registro */
+.login-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.login-brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.login-brand-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #1b5e20;
+}
+
+.login-brand-text span {
+    color: #43A047;
+    font-weight: 600;
+}
+
+/* ESTILOS PARA LOGIN Y PANEL ADMIN */
 .login-body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #e8f5e9;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
 .login-container {
     background: white;
     padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     width: 100%;
-    max-width: 350px;
+    max-width: 360px;
     text-align: center;
 }
 
@@ -134,16 +367,17 @@ input[type="file"] {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .alert.error {
     background-color: #ffcdd2;
     color: #c62828;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-bottom: 15px;
     font-size: 0.9em;
 }
@@ -158,9 +392,9 @@ input[type="file"] {
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .admin-table th, .admin-table td {
@@ -186,51 +420,39 @@ input[type="file"] {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Menu Responsivo */
-.menu-toggle {
-    display: none;
-}
-.menu-icon {
-    display: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    user-select: none;
-    color: white;
-}
-.nav-user {
-    display: flex;
+.section-heading-icon {
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
 }
 
-@media (max-width: 768px) {
-    .menu-icon {
-        display: block;
-    }
+.section-heading-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #2E7D32;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (max-width: 600px) {
     .navbar {
-        position: relative;
-        flex-wrap: wrap;
+        padding: 10px 14px;
     }
-    .nav-user {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #1b5e20;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 15px 0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        z-index: 1000;
-        text-align: center;
-        gap: 10px;
+    .brand-text {
+        font-size: 1.2rem;
     }
-    .nav-user .nav-link {
-        margin: 5px 0;
-        display: block;
-        width: 100%;
+    .brand-logo {
+        width: 28px;
+        height: 28px;
     }
-    .menu-toggle:checked ~ .nav-user {
-        display: flex;
+    .btn-capture {
+        padding: 7px 11px;
+        font-size: 0.8rem;
+    }
+    .icon-btn {
+        width: 34px;
+        height: 34px;
     }
 }

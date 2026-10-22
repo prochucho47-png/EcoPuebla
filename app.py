@@ -259,7 +259,7 @@ def user_gallery():
     cur.close()
     conn.close()
     
-    return render_template('gallery.html', capturas=capturas, username=session['username'])
+    return render_template('gallery.html', capturas=capturas, username=session['username'], rol=session.get('rol'))
 
 @app.route('/admin')
 def admin_dashboard():
@@ -280,7 +280,7 @@ def admin_dashboard():
     cur.close()
     conn.close()
     
-    return render_template('admin.html', capturas=capturas, username=session['username'])
+    return render_template('admin.html', capturas=capturas, username=session['username'], rol=session.get('rol'))
 
 @app.route('/api/recognize', methods=['POST'])
 def recognize_image():

@@ -14,7 +14,7 @@ document.getElementById('imageInput').addEventListener('change', function(event)
 });
 
 // Enviar la imagen al backend al dar click en Analizar
-document.getElementById('analyzeBtn').addEventListener('click', async function() {
+document.getElementById('analyzeBtn').addEventListener('click', function() {
     const fileInput = document.getElementById('imageInput');
     
     if (fileInput.files.length === 0) {
@@ -30,36 +30,53 @@ document.getElementById('analyzeBtn').addEventListener('click', async function()
     analyzeBtn.textContent = 'Analizando en el servidor...';
     analyzeBtn.disabled = true;
 
-    try {
-        // Hacemos la petición a la API en Flask
-        const response = await fetch('/api/recognize', {
-            method: 'POST',
-            body: formData
-        });
+    const sendData = async (fd) => {
+        try {
+            const response = await fetch('/api/recognize', {
+                method: 'POST',
+                body: fd
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (result.success) {
-            const data = result.data;
-            const resultContent = document.getElementById('resultContent');
-            
-            // Construir el HTML con el resultado
-            resultContent.innerHTML = `
-                <p><strong>Clasificación:</strong> ${data.tipo}</p>
-                <p><strong>Nombre Común:</strong> ${data.nombre_comun}</p>
-                <p><strong>Nombre Científico:</strong> <em>${data.nombre_cientifico}</em></p>
-                <p><strong>Descripción:</strong> ${data.descripcion}</p>
-                <p><strong>Fiabilidad de IA:</strong> ${(data.confianza * 100).toFixed(1)}%</p>
-            `;
-            document.getElementById('result-section').style.display = 'block';
-        } else {
-            alert('Error en el análisis: ' + result.error);
+            if (result.success) {
+                const data = result.data;
+                const resultContent = document.getElementById('resultContent');
+                
+                resultContent.innerHTML = `
+                    <p><strong>Clasificación:</strong> ${data.tipo}</p>
+                    <p><strong>Nombre Común:</strong> ${data.nombre_comun}</p>
+                    <p><strong>Nombre Científico:</strong> <em>${data.nombre_cientifico}</em></p>
+                    <p><strong>Descripción:</strong> ${data.descripcion}</p>
+                    <p><strong>Fiabilidad de IA:</strong> ${(data.confianza * 100).toFixed(1)}%</p>
+                `;
+                document.getElementById('result-section').style.display = 'block';
+            } else {
+                alert('Error en el análisis: ' + result.error);
+            }
+        } catch (error) {
+            console.error('Error al contactar con la API:', error);
+            alert('Ocurrió un error al intentar comunicarse con el servidor.');
+        } finally {
+            analyzeBtn.textContent = 'Analizar Imagen';
+            analyzeBtn.disabled = false;
         }
-    } catch (error) {
-        console.error('Error al contactar con la API:', error);
-        alert('Ocurrió un error al intentar comunicarse con el servidor.');
-    } finally {
-        analyzeBtn.textContent = 'Analizar Imagen';
-        analyzeBtn.disabled = false;
+    };
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                formData.append('lat', position.coords.latitude);
+                formData.append('lng', position.coords.longitude);
+                sendData(formData);
+            },
+            (error) => {
+                console.warn('No se pudo obtener ubicación GPS:', error);
+                sendData(formData);
+            },
+            { timeout: 5000 }
+        );
+    } else {
+        sendData(formData);
     }
 });

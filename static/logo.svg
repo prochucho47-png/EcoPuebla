@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E7D32" />
+      <stop offset="100%" stop-color="#1B5E20" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#66BB6A" />
+      <stop offset="100%" stop-color="#C8E6C9" />
+    </linearGradient>
+  </defs>
+  <!-- Fondo circular suave con borde -->
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#bgGrad)" stroke="#81C784" stroke-width="2"/>
+  <!-- Silueta de hoja orgánica y sendero/montaña -->
+  <path d="M46 18 C28 18, 18 28, 18 44 C34 44, 46 34, 46 18 Z" fill="url(#leafGrad)" />
+  <!-- Nervadura central de la hoja en estilo minimalista -->
+  <path d="M18 44 C26 36, 33 29, 41 23" stroke="#1B5E20" stroke-width="2.5" stroke-linecap="round" fill="none" />
+  <path d="M27 35 L25 28" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" fill="none" />
+  <path d="M33 29 L39 30" stroke="#1B5E20" stroke-width="2" stroke-linecap="round" fill="none" />
+</svg>

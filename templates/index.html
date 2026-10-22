@@ -4,27 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoPuebla - Reconocimiento de Flora y Fauna</title>
+    <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <!-- BARRA DE NAVEGACIÓN AÑADIDA -->
     <nav class="navbar">
-        <div class="nav-brand">🌿 EcoPuebla</div>
-        <input type="checkbox" id="menu-toggle" class="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">☰</label>
-        <div class="nav-user">
-            <span>Hola, <strong>{{ username }}</strong></span>
-            <a href="/mis_descubrimientos" class="nav-link">Mis Descubrimientos</a> 
-            <a href="/ranking" class="nav-link">🏆 Ranking</a> 
-            {% if rol == 'administrador' %}
-            <a href="/admin" class="nav-link">⚙️ Panel Admin</a>
-            {% endif %}
-            <a href="/logout" class="nav-link">Cerrar Sesión</a>
+        <a href="/" class="nav-brand" title="Ir a Nueva Captura">
+            <img src="/static/logo.svg" alt="Logo EcoPuebla" class="brand-logo">
+            <span class="brand-text"><span class="brand-eco">Eco</span>Puebla</span>
+        </a>
+
+        <div class="nav-actions">
+            <a href="/" class="btn-capture" title="Nueva Captura">
+                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <span>Nueva Captura</span>
+            </a>
+
+            <a href="/mis_descubrimientos" class="icon-btn" title="Mis Descubrimientos">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </a>
+
+            <a href="/ranking" class="icon-btn" title="Ranking">
+                <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+            </a>
+
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="icon-btn" title="Menú de usuario">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-1a6 6 0 0 1 12 0v1"></path></svg>
+            </label>
+
+            <div class="nav-dropdown">
+                <div class="dropdown-user-header">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-1a6 6 0 0 1 12 0v1"></path></svg>
+                    <span>Hola, <strong>{{ username }}</strong></span>
+                </div>
+                <a href="/" class="dropdown-link">
+                    <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    Nueva Captura
+                </a>
+                <a href="/mis_descubrimientos" class="dropdown-link">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    Mis Descubrimientos
+                </a>
+                <a href="/ranking" class="dropdown-link">
+                    <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                    Ranking
+                </a>
+                {% if rol == 'administrador' %}
+                <a href="/admin" class="dropdown-link">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Admin
+                </a>
+                {% endif %}
+                <a href="/logout" class="dropdown-link logout-link">
+                    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Cerrar Sesión
+                </a>
+            </div>
         </div>
     </nav>
 
     <div class="container">
-
         <main>
             <div class="upload-section">
                 <p>Toma una foto o sube una imagen para identificar la especie.</p>
@@ -44,5 +84,14 @@
         </main>
     </div>
     <script src="/static/script.js"></script>
+    <script>
+        document.addEventListener('click', function(e) {
+            const navActions = document.querySelector('.nav-actions');
+            const toggle = document.getElementById('menu-toggle');
+            if (toggle && navActions && !navActions.contains(e.target)) {
+                toggle.checked = false;
+            }
+        });
+    </script>
 </body>
 </html>

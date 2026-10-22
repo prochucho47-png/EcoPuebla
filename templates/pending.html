@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoPuebla - Verificación en curso</title>
+    <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
     <link rel="stylesheet" href="/static/style.css">
     <style>
         .pending-container {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 24px;
         }
         .icon-mail {
-            font-size: 60px;
-            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #E8F5E9;
+            color: #2E7D32;
+            margin-bottom: 16px;
+        }
+        .icon-mail svg {
+            width: 32px;
+            height: 32px;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
         .pending-text {
             color: #555;
-            font-size: 1.1em;
+            font-size: 1.05em;
             margin-bottom: 30px;
             line-height: 1.5;
         }
@@ -24,7 +41,9 @@
 </head>
 <body class="login-body">
     <div class="login-container pending-container">
-        <div class="icon-mail">✉️</div>
+        <div class="icon-mail">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </div>
         <h2>Verificación en curso</h2>
         <!-- Mostrar mensajes de error / simulacion -->
         {% with messages = get_flashed_messages() %}
@@ -43,7 +62,7 @@
             </p>
         </div>
         
-        <a href="/login" class="btn" style="text-decoration: none; display: inline-block;">Ya me verifiqué, Iniciar sesión</a>
+        <a href="/login" class="btn" style="text-decoration: none; display: inline-block; box-sizing: border-box;">Ya me verifiqué, Iniciar sesión</a>
     </div>
 </body>
 </html>
