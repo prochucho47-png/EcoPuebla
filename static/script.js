@@ -2,6 +2,10 @@
 document.getElementById('imageInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
+        const dropText = document.getElementById('fileDropText');
+        if (dropText) {
+            dropText.textContent = 'Imagen seleccionada: ' + file.name;
+        }
         const reader = new FileReader();
         reader.onload = function(e) {
             const preview = document.getElementById('imagePreview');

@@ -8,18 +8,16 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body class="login-body">
-    <div class="auth-card">
-        <!-- Panel Izquierdo: Identidad y Características -->
-        <div class="auth-banner">
+    <div class="auth-page-layout">
+        <!-- Fondo de página: Identidad y Características -->
+        <div class="auth-bg-showcase">
             <div class="auth-banner-brand">
                 <img src="/static/logo.svg" alt="Logo EcoPuebla">
                 <span><em>Eco</em>Puebla</span>
             </div>
 
-            <div class="auth-banner-content">
-                <h1>Únete a la comunidad exploradora</h1>
-                <p>Crea tu perfil gratuito para documentar especies de flora y fauna en Puebla, guardar tu galería personal y sumar puntos en el ranking.</p>
-            </div>
+            <h1>Únete a la comunidad exploradora</h1>
+            <p>Crea tu perfil gratuito para documentar especies de flora y fauna en Puebla, guardar tu galería personal y sumar puntos en el ranking.</p>
 
             <div class="auth-features">
                 <div class="auth-feature-item">
@@ -37,8 +35,8 @@
             </div>
         </div>
 
-        <!-- Panel Derecho: Formulario de Registro -->
-        <div class="auth-form-side">
+        <!-- Recuadro Flotante de Registro -->
+        <div class="auth-box">
             <div class="auth-form-header">
                 <h2>Crear nueva cuenta</h2>
                 <p>Completa tus datos para comenzar a explorar</p>
@@ -56,7 +54,7 @@
                     <label class="form-label" for="regUsername">Nombre de usuario</label>
                     <div class="input-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-1a6 6 0 0 1 12 0v1"></path></svg>
-                        <input type="text" id="regUsername" name="username" placeholder="Ej. explorador_puebla" required autocomplete="off">
+                        <input type="text" id="regUsername" name="username" placeholder="Ejemplo: usuario" required autocomplete="off">
                     </div>
                 </div>
 
@@ -64,7 +62,7 @@
                     <label class="form-label" for="regEmail">Correo electrónico</label>
                     <div class="input-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <input type="email" id="regEmail" name="email" placeholder="tucorreo@ejemplo.com" required autocomplete="off">
+                        <input type="email" id="regEmail" name="email" placeholder="Ejemplo: correo@ejemplo.com" required autocomplete="off">
                     </div>
                 </div>
 

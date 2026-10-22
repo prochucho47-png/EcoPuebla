@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
     color: #333;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, .brand-text {
@@ -16,7 +21,7 @@ h1, h2, h3, .brand-text {
 .container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 16px;
     text-align: center;
 }
 
@@ -28,54 +33,119 @@ header {
     margin-bottom: 20px;
 }
 
+/* =========================================================
+   SECCIÓN DE CÁMARA Y SUBIDA (OPTIMIZADA PARA CELULAR)
+   ========================================================= */
 .upload-section {
     background-color: white;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 28px 22px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+}
+
+.upload-title {
+    margin: 0 0 6px 0;
+    font-size: 1.35rem;
+    color: #1b5e20;
+}
+
+.upload-subtitle {
+    margin: 0 0 20px 0;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.file-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px 16px;
+    margin-bottom: 18px;
+    border: 2px dashed #81C784;
+    border-radius: 14px;
+    background-color: #F1F8F3;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.file-dropzone:hover, .file-dropzone:active {
+    background-color: #E8F5E9;
+    border-color: #2E7D32;
+}
+
+.file-dropzone svg {
+    width: 36px;
+    height: 36px;
+    stroke: #2E7D32;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.file-dropzone-text {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 0.96rem;
+}
+
+.file-dropzone-hint {
+    font-size: 0.82rem;
+    color: #6B7280;
 }
 
 input[type="file"] {
     margin-bottom: 15px;
     width: 100%;
+    font-size: 0.9rem;
 }
 
 .btn {
-    background-color: #2E7D32;
+    background: linear-gradient(135deg, #2E7D32 0%, #1b5e20 100%);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 24px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    border-radius: 8px;
+    border-radius: 11px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.25s, transform 0.15s;
+    box-shadow: 0 4px 14px rgba(27, 94, 32, 0.25);
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
 }
 
 .btn:hover {
-    background-color: #1b5e20;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(27, 94, 32, 0.32);
 }
 
 .btn:disabled {
-    background-color: #9E9E9E;
+    background: #9E9E9E;
+    box-shadow: none;
     cursor: not-allowed;
+    transform: none;
 }
 
 #imagePreview {
     max-width: 100%;
-    border-radius: 10px;
-    margin-top: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 380px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: 18px auto 0 auto;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
 .result-section {
     background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 22px;
+    border-radius: 14px;
     margin-top: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     text-align: left;
     border-left: 5px solid #2E7D32;
 }
@@ -89,13 +159,13 @@ input[type="file"] {
    BARRA DE NAVEGACIÓN, LOGO PERSONALIZADO Y MENÚ DESPLEGABLE
    ========================================================= */
 .navbar {
-    background: linear-gradient(90deg, #164e1b 0%, #1b5e20 100%);
+    background: linear-gradient(90deg, #123e17 0%, #1b5e20 100%);
     color: white;
     padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     position: sticky;
     top: 0;
     z-index: 1500;
@@ -107,7 +177,7 @@ input[type="file"] {
     gap: 10px;
     text-decoration: none;
     color: white;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s;
 }
 
 .nav-brand:hover {
@@ -123,7 +193,7 @@ input[type="file"] {
 
 .brand-text {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #ffffff;
@@ -134,22 +204,10 @@ input[type="file"] {
     font-weight: 600;
 }
 
-.brand-admin-tag {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #C8E6C9;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 2px 10px;
-    border-radius: 20px;
-    margin-left: 4px;
-}
-
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     position: relative;
 }
 
@@ -157,12 +215,12 @@ input[type="file"] {
 .btn-capture {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     background-color: #F59E0B;
     color: #ffffff;
     text-decoration: none;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     font-weight: 700;
     padding: 8px 14px;
     border-radius: 20px;
@@ -177,13 +235,14 @@ input[type="file"] {
 }
 
 .btn-capture svg {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+    flex-shrink: 0;
 }
 
 /* Iconos minimalistas de línea (estilo Imagen 2) */
@@ -201,6 +260,7 @@ input[type="file"] {
     text-decoration: none;
     transition: all 0.2s ease;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .icon-btn:hover {
@@ -233,8 +293,8 @@ input[type="file"] {
     min-width: 230px;
     background-color: #ffffff;
     color: #222;
-    border-radius: 12px;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     padding: 8px 0;
     z-index: 2000;
     border: 1px solid #e5e7eb;
@@ -269,7 +329,7 @@ input[type="file"] {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 16px;
+    padding: 11px 16px;
     color: #374151;
     text-decoration: none;
     font-size: 0.92rem;
@@ -310,86 +370,57 @@ input[type="file"] {
 }
 
 /* =========================================================
-   DISEÑO MODERNO DE AUTENTICACIÓN (LOGIN / REGISTRO / CLAVE)
+   FONDO INMERSIVO VERDE (IMAGEN 1) Y RECUADRO FLOTANTE DE LOGIN
    ========================================================= */
 .login-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(129, 199, 132, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(165, 214, 167, 0.16) 0%, transparent 50%),
+        linear-gradient(145deg, #0d2e12 0%, #164e1b 50%, #256b2a 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at 12% 18%, rgba(129, 199, 132, 0.35) 0%, transparent 42%),
-        radial-gradient(circle at 88% 82%, rgba(46, 125, 50, 0.25) 0%, transparent 48%),
-        linear-gradient(135deg, #e8f5e9 0%, #f1f8f3 50%, #dcedc8 100%);
-    padding: 24px 16px;
-    box-sizing: border-box;
-}
-
-.auth-card {
-    display: grid;
-    grid-template-columns: 1.05fr 1.15fr;
-    width: 100%;
-    max-width: 860px;
-    background: #ffffff;
-    border-radius: 22px;
-    box-shadow: 0 22px 50px rgba(22, 78, 27, 0.14), 0 4px 12px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
-    border: 1px solid rgba(46, 125, 50, 0.12);
-}
-
-.auth-banner {
-    background: linear-gradient(155deg, #103815 0%, #1b5e20 52%, #2e7d32 100%);
-    color: #ffffff;
-    padding: 44px 36px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 32px 20px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.auth-page-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    width: 100%;
+    max-width: 1020px;
+    z-index: 1;
+}
+
+/* Contenido que vive directamente sobre el fondo verde de la página */
+.auth-bg-showcase {
+    flex: 1;
+    color: #ffffff;
     text-align: left;
-}
-
-.auth-banner::before {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(165, 214, 167, 0.18) 0%, transparent 70%);
-    top: -60px;
-    right: -60px;
-    pointer-events: none;
-}
-
-.auth-banner::after {
-    content: "";
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(129, 199, 132, 0.14) 0%, transparent 70%);
-    bottom: -50px;
-    left: -50px;
-    pointer-events: none;
+    max-width: 480px;
 }
 
 .auth-banner-brand {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    z-index: 1;
+    margin-bottom: 24px;
 }
 
 .auth-banner-brand img {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
 }
 
 .auth-banner-brand span {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.65rem;
+    font-size: 1.85rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #ffffff;
@@ -401,49 +432,45 @@ input[type="file"] {
     font-weight: 600;
 }
 
-.auth-banner-content {
-    margin: 28px 0;
-    z-index: 1;
-}
-
-.auth-banner-content h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    line-height: 1.25;
-    margin: 0 0 12px 0;
+.auth-bg-showcase h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 14px 0;
     color: #ffffff;
 }
 
-.auth-banner-content p {
-    font-size: 0.94rem;
+.auth-bg-showcase p {
+    font-size: 1rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.84);
-    margin: 0;
+    color: rgba(255, 255, 255, 0.86);
+    margin: 0 0 28px 0;
 }
 
 .auth-features {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    z-index: 1;
 }
 
 .auth-feature-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: #E8F5E9;
     font-weight: 500;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 9px 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .auth-feature-item svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     stroke: #A5D6A7;
     stroke-width: 2;
     fill: none;
@@ -452,13 +479,20 @@ input[type="file"] {
     flex-shrink: 0;
 }
 
-.auth-form-side {
-    padding: 44px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
+/* Recuadro blanco flotante para Iniciar Sesión / Registro / Recuperación */
+.auth-box {
+    width: 100%;
+    max-width: 420px;
     background: #ffffff;
+    border-radius: 22px;
+    padding: 38px 34px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.12);
+    text-align: left;
+    flex-shrink: 0;
+}
+
+.auth-box-centered {
+    margin: 0 auto;
 }
 
 .auth-form-header {
@@ -467,7 +501,7 @@ input[type="file"] {
 
 .auth-form-header h2 {
     margin: 0 0 6px 0;
-    font-size: 1.65rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: #111827;
 }
@@ -476,6 +510,7 @@ input[type="file"] {
     margin: 0;
     font-size: 0.92rem;
     color: #6B7280;
+    line-height: 1.45;
 }
 
 .form-group {
@@ -487,11 +522,13 @@ input[type="file"] {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .form-label {
     display: block;
-    font-size: 0.84rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #374151;
     margin-bottom: 6px;
@@ -514,15 +551,17 @@ input[type="file"] {
     text-decoration: underline;
 }
 
+/* Contenedor de input con icono perfectamente alineado sin encimarse */
 .input-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .input-icon {
     position: absolute;
     left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 18px;
     height: 18px;
     stroke: #9CA3AF;
@@ -532,20 +571,27 @@ input[type="file"] {
     stroke-linejoin: round;
     pointer-events: none;
     transition: stroke 0.2s;
+    z-index: 2;
 }
 
 .input-wrapper input {
     width: 100%;
-    padding: 12px 42px 12px 42px;
+    height: 46px;
+    padding: 10px 42px 10px 44px !important;
+    margin: 0 !important;
     border: 1.5px solid #E5E7EB;
-    border-radius: 11px;
+    border-radius: 12px;
     background-color: #F9FAFB;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.94rem;
+    font-size: 16px; /* 16px evita auto-zoom molesto en iOS y Android */
     color: #111827;
     box-sizing: border-box;
-    transition: all 0.2s ease;
-    margin-bottom: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: #9CA3AF;
+    font-size: 0.9rem;
 }
 
 .input-wrapper input:focus {
@@ -561,16 +607,19 @@ input[type="file"] {
 
 .toggle-password {
     position: absolute;
-    right: 12px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
-    padding: 4px;
+    padding: 6px;
     cursor: pointer;
     color: #9CA3AF;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: color 0.2s;
+    z-index: 2;
 }
 
 .toggle-password:hover {
@@ -593,23 +642,24 @@ input[type="file"] {
     justify-content: center;
     gap: 8px;
     width: 100%;
-    padding: 13px 20px;
+    height: 48px;
+    padding: 12px 20px;
     margin-top: 6px;
     background: linear-gradient(135deg, #2E7D32 0%, #1b5e20 100%);
     color: #ffffff;
     border: none;
-    border-radius: 11px;
+    border-radius: 12px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.96rem;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(27, 94, 32, 0.25);
-    transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s;
+    box-shadow: 0 6px 16px rgba(27, 94, 32, 0.28);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .btn-auth:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(27, 94, 32, 0.34);
+    box-shadow: 0 8px 20px rgba(27, 94, 32, 0.36);
 }
 
 .btn-auth svg {
@@ -628,13 +678,13 @@ input[type="file"] {
 }
 
 .auth-switch {
-    margin-top: 22px;
+    margin-top: 20px;
     text-align: center;
     font-size: 0.9rem;
     color: #4B5563;
     background: #F9FAFB;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 11px;
     border: 1px solid #F3F4F6;
 }
 
@@ -650,15 +700,17 @@ input[type="file"] {
 }
 
 .auth-footer {
-    margin-top: 22px;
-    padding-top: 16px;
+    margin-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid #F3F4F6;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: #9CA3AF;
+    flex-wrap: wrap;
+    text-align: center;
 }
 
 .auth-footer svg {
@@ -667,19 +719,20 @@ input[type="file"] {
     stroke: #2E7D32;
     stroke-width: 1.8;
     fill: none;
+    flex-shrink: 0;
 }
 
 .auth-footer a {
     color: #2E7D32;
     font-weight: 600;
     text-decoration: none;
+    word-break: break-all;
 }
 
 .auth-footer a:hover {
     text-decoration: underline;
 }
 
-/* Encabezado con Logo en tarjetas individuales (Pending) */
 .login-brand {
     display: inline-flex;
     align-items: center;
@@ -696,7 +749,7 @@ input[type="file"] {
 
 .login-brand-text {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     color: #1b5e20;
@@ -709,28 +762,17 @@ input[type="file"] {
 
 .login-container {
     background: white;
-    padding: 40px;
-    border-radius: 18px;
-    box-shadow: 0 16px 40px rgba(22, 78, 27, 0.12);
+    padding: 36px 30px;
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
-    border: 1px solid rgba(46, 125, 50, 0.1);
 }
 
 .login-container h2 {
     margin-top: 0;
     color: #2E7D32;
-}
-
-.login-container input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .alert.error {
@@ -744,30 +786,42 @@ input[type="file"] {
     font-weight: 500;
 }
 
+/* =========================================================
+   PANEL ADMIN Y TABLA RESPONSIVA PARA CELULAR
+   ========================================================= */
 .admin-container {
     max-width: 1000px;
-    margin-top: 30px;
+    margin-top: 24px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    margin-top: 20px;
 }
 
 .admin-table {
     width: 100%;
+    min-width: 640px;
     border-collapse: collapse;
-    margin-top: 20px;
     background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .admin-table th, .admin-table td {
-    padding: 12px 15px;
+    padding: 12px 14px;
     text-align: left;
     border-bottom: 1px solid #eee;
+    font-size: 0.92rem;
 }
 
 .admin-table th {
     background-color: #2E7D32;
     color: white;
+    white-space: nowrap;
 }
 
 .admin-table tr:hover {
@@ -775,8 +829,8 @@ input[type="file"] {
 }
 
 .thumb {
-    width: 70px;
-    height: 70px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -798,46 +852,73 @@ input[type="file"] {
     stroke-linejoin: round;
 }
 
-@media (max-width: 768px) {
-    .auth-card {
-        grid-template-columns: 1fr;
-        max-width: 440px;
+/* =========================================================
+   OPTIMIZACIÓN PARA CELULARES Y TABLETS
+   ========================================================= */
+@media (max-width: 860px) {
+    .login-body {
+        padding: 24px 16px;
+        align-items: flex-start;
     }
-    .auth-banner {
-        padding: 28px 26px;
+    .auth-page-layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
     }
-    .auth-banner-content {
-        margin: 16px 0 0 0;
+    .auth-bg-showcase {
+        text-align: center;
+        max-width: 420px;
     }
-    .auth-banner-content h1 {
-        font-size: 1.35rem;
-        margin-bottom: 6px;
+    .auth-banner-brand {
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+    .auth-bg-showcase h1 {
+        font-size: 1.65rem;
+        margin-bottom: 8px;
+    }
+    .auth-bg-showcase p {
+        font-size: 0.92rem;
+        margin-bottom: 16px;
     }
     .auth-features {
-        display: none;
+        text-align: left;
     }
-    .auth-form-side {
-        padding: 30px 26px;
+    .auth-box {
+        padding: 28px 22px;
     }
 }
 
 @media (max-width: 600px) {
     .navbar {
-        padding: 10px 14px;
+        padding: 10px 12px;
     }
     .brand-text {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
     .brand-logo {
         width: 28px;
         height: 28px;
     }
+    .nav-actions {
+        gap: 6px;
+    }
     .btn-capture {
         padding: 7px 11px;
-        font-size: 0.8rem;
+        font-size: 0.78rem;
     }
     .icon-btn {
         width: 34px;
         height: 34px;
+    }
+    .icon-btn svg {
+        width: 17px;
+        height: 17px;
+    }
+    .upload-section {
+        padding: 22px 16px;
+    }
+    #map {
+        height: 300px !important;
     }
 }

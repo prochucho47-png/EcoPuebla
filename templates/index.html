@@ -67,9 +67,16 @@
     <div class="container">
         <main>
             <div class="upload-section">
-                <p>Toma una foto o sube una imagen para identificar la especie.</p>
-                <!-- El atributo capture="environment" abre directamente la cámara trasera en el celular -->
-                <input type="file" id="imageInput" accept="image/*" capture="environment">
+                <h2 class="upload-title">Nueva Captura</h2>
+                <p class="upload-subtitle">Toma una foto o selecciona una imagen para identificar la especie con IA.</p>
+                
+                <label for="imageInput" class="file-dropzone">
+                    <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <span class="file-dropzone-text" id="fileDropText">Toca aquí para abrir la cámara o elegir foto</span>
+                    <span class="file-dropzone-hint">JPG, PNG o fotografía directa desde tu celular</span>
+                </label>
+                <input type="file" id="imageInput" accept="image/*" capture="environment" style="display:none;">
+                
                 <button id="analyzeBtn" class="btn">Analizar Imagen</button>
             </div>
 

@@ -8,18 +8,16 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body class="login-body">
-    <div class="auth-card">
-        <!-- Panel Izquierdo: Identidad y Características -->
-        <div class="auth-banner">
+    <div class="auth-page-layout">
+        <!-- Fondo de página: Identidad y Características (Imagen 1) -->
+        <div class="auth-bg-showcase">
             <div class="auth-banner-brand">
                 <img src="/static/logo.svg" alt="Logo EcoPuebla">
                 <span><em>Eco</em>Puebla</span>
             </div>
 
-            <div class="auth-banner-content">
-                <h1>Descubre la biodiversidad de Puebla</h1>
-                <p>Identifica especies de flora y fauna mediante Inteligencia Artificial, registra tus hallazgos en el mapa interactivo y compite en el ranking de exploradores.</p>
-            </div>
+            <h1>Descubre la biodiversidad de Puebla</h1>
+            <p>Identifica especies de flora y fauna mediante Inteligencia Artificial, registra tus hallazgos en el mapa interactivo y compite en el ranking de exploradores.</p>
 
             <div class="auth-features">
                 <div class="auth-feature-item">
@@ -37,11 +35,11 @@
             </div>
         </div>
 
-        <!-- Panel Derecho: Formulario de Inicio de Sesión -->
-        <div class="auth-form-side">
+        <!-- Recuadro Flotante para Iniciar Sesión -->
+        <div class="auth-box">
             <div class="auth-form-header">
-                <h2>Bienvenido de nuevo</h2>
-                <p>Ingresa tus credenciales para acceder a tu cuenta</p>
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa tus datos para acceder a la plataforma</p>
             </div>
 
             <!-- Mostrar mensajes de error o avisos -->
@@ -58,7 +56,7 @@
                     <label class="form-label" for="usernameInput">Usuario o Correo Electrónico</label>
                     <div class="input-wrapper">
                         <svg class="input-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M6 20v-1a6 6 0 0 1 12 0v1"></path></svg>
-                        <input type="text" id="usernameInput" name="username" placeholder="Ej. juan o correo@ejemplo.com" required autocomplete="off">
+                        <input type="text" id="usernameInput" name="username" placeholder="Ejemplo: usuario o correo@ejemplo.com" required autocomplete="off">
                     </div>
                 </div>
 
@@ -77,7 +75,7 @@
                 </div>
 
                 <button type="submit" class="btn-auth">
-                    <span>Iniciar Sesión</span>
+                    <span>Entrar</span>
                     <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </button>
             </form>
