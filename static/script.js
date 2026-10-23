@@ -47,10 +47,17 @@ document.getElementById('analyzeBtn').addEventListener('click', function() {
                 const data = result.data;
                 const resultContent = document.getElementById('resultContent');
                 
+                const isFloraFauna = (data.tipo === 'Flora' || data.tipo === 'Fauna');
+                const badgeColor = isFloraFauna ? '#2E7D32' : '#C62828';
+                const badgeBg = isFloraFauna ? '#E8F5E9' : '#FFEBEE';
+                const statusMessage = isFloraFauna 
+                    ? `<span style="display:inline-block; background:${badgeBg}; color:${badgeColor}; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; margin-bottom:10px;">${data.tipo} (Puntos otorgados)</span>`
+                    : `<span style="display:inline-block; background:${badgeBg}; color:${badgeColor}; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; margin-bottom:10px;">No es Flora ni Fauna (0 pts)</span>`;
+
                 resultContent.innerHTML = `
-                    <p><strong>Clasificación:</strong> ${data.tipo}</p>
-                    <p><strong>Nombre Común:</strong> ${data.nombre_comun}</p>
-                    <p><strong>Nombre Científico:</strong> <em>${data.nombre_cientifico}</em></p>
+                    <div style="margin-bottom: 8px;">${statusMessage}</div>
+                    <p><strong>Objeto / Especie detectada:</strong> ${data.nombre_comun}</p>
+                    ${data.nombre_cientifico && data.nombre_cientifico !== 'N/A' && data.nombre_cientifico !== '-' ? `<p><strong>Nombre Científico:</strong> <em>${data.nombre_cientifico}</em></p>` : ''}
                     <p><strong>Descripción:</strong> ${data.descripcion}</p>
                     <p><strong>Fiabilidad de IA:</strong> ${(data.confianza * 100).toFixed(1)}%</p>
                 `;

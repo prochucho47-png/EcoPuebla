@@ -338,15 +338,15 @@ def ranking():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
-    # Sistema de puntos: Fauna = 20 pts, Flora = 10 pts, Otros = 5 pts
+    # Sistema de puntos: Fauna = 20 pts, Flora = 10 pts, No flora ni fauna = 0 pts
     cur.execute('''
         SELECT u.username, 
-               COUNT(d.id) as total_descubrimientos,
-               SUM(CASE 
+               COUNT(CASE WHEN d.tipo IN ('Fauna', 'Flora') THEN 1 END) as total_descubrimientos,
+               COALESCE(SUM(CASE 
                    WHEN d.tipo = 'Fauna' THEN 20 
                    WHEN d.tipo = 'Flora' THEN 10 
-                   ELSE 5 
-               END) as puntos
+                   ELSE 0 
+               END), 0) as puntos
         FROM usuarios u
         JOIN detecciones d ON u.id = d.usuario_id
         GROUP BY u.id, u.username

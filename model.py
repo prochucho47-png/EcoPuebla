@@ -33,13 +33,22 @@ def predict_image(image_path):
         # El "prompt" (instrucción) para la IA
         prompt = """
         Eres un experto biólogo enfocado en la flora y fauna de Puebla, México. 
-        Analiza esta imagen y dime qué especie de planta o animal es. 
+        Analiza esta imagen con mucho cuidado:
+        1. Si la imagen contiene una planta, árbol, flor, hongo o vegetación, su "tipo" DEBE ser "Flora".
+        2. Si la imagen contiene un animal silvestre, ave, insecto, reptil, mamífero o fauna local, su "tipo" DEBE ser "Fauna".
+        3. Si la imagen contiene un objeto inanimado, vehículo, comida procesada, persona, edificio, basura o cualquier elemento que NO sea flora ni fauna viva/natural:
+           - "tipo": "No flora ni fauna"
+           - "nombre_comun": Menciona con precisión qué es lo que ves (ej. "Taza de cerámica", "Teléfono celular", "Automóvil", "Pizza", "Silla de plástico").
+           - "nombre_cientifico": "N/A"
+           - "descripcion": Explica brevemente qué objeto es y especifica con amabilidad que no corresponde a una especie de flora o fauna para el registro biológico.
+           - "confianza": 0.95
+
         Devuelve la respuesta ÚNICAMENTE en formato JSON válido con esta estructura exacta, sin formato markdown extra:
         {
-            "nombre_comun": "Ej. Bugambilia",
-            "nombre_cientifico": "Ej. Bougainvillea glabra",
-            "tipo": "Flora" o "Fauna",
-            "descripcion": "Breve descripción de 2 líneas sobre la especie y su presencia en Puebla",
+            "nombre_comun": "Nombre común de la especie o del objeto visualizado",
+            "nombre_cientifico": "Nombre científico en latín o N/A si no aplica",
+            "tipo": "Flora", "Fauna" o "No flora ni fauna",
+            "descripcion": "Descripción concisa",
             "confianza": 0.95
         }
         """
